@@ -1,0 +1,38 @@
+# dyn_alloc_sce
+focus_on_high_profit_grounds TACs LTMP
+# dyn_pop_sce
+baseline 
+# biolsce
+2
+# a_graph
+56
+# Frequency to apply growth (0:daily; 1:weekly; 2:monthly; 3:quarterly; 4:semester)
+4
+# Frequency to redispatch the pop (0:daily; 1:weekly; 2:monthly; 3:quarterly; 4:semester)
+3
+# nrow_coord
+10140
+# nrow_graph
+57555
+# a_port
+9979
+# grid res km
+4
+# individual vessel quotas
+1
+#  check all stocks before going fishing (otherwise, explicit pops only)
+0
+# Go Fishing DTree
+
+# Choose Ground DTree
+ChooseGround_area_complex_tree_example.dt.csv
+# Start Fishing DTree
+
+# Change Ground DTree
+
+# Stop Fishing DTree
+StopFishing_default_tree.dt.csv
+# Change Port DTree
+
+# Use Dtrees
+1

@@ -1,0 +1,6 @@
+#TreeVersion: 6
+#TreeType: GoFishing
+# id,variable,posx,posy,nchld,children...,value
+0,lastTripProfitIs,2263,2401,2,1,0,2,1,0
+1,probability,2194,2547,0,0.7
+2,probability,2480,2545,0,0.2

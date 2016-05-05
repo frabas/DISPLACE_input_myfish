@@ -1,0 +1,36 @@
+# dyn_alloc_sce
+baseline TACs LTMP 
+# dyn_pop_sce
+baseline 
+# biolsce
+1
+# Frequency to apply growth (0:daily; 1:weekly; 2:monthly; 3:quarterly; 4:semester)
+4
+# Frequency to redispatch the pop (0:daily; 1:weekly; 2:monthly; 3:quarterly; 4:semester)
+3
+# a_graph
+56
+# nrow_coord
+10140
+# nrow_graph
+57555
+# a_port
+9979
+# grid res km
+4
+# is_individual_vessel_quotas
+0
+# Go Fishing DTree
+GoFishing_tree_windspeed_then_fishprice.dt.csv
+# Choose Ground DTree
+
+# Start Fishing DTree
+
+# Change Ground DTree
+
+# Stop Fishing DTree
+
+# Change Port DTree
+
+# Use Dtrees
+1
