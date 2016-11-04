@@ -1,0 +1,6 @@
+#TreeVersion: 6
+#TreeType: GoFishing
+# id,variable,posx,posy,nchld,children...,value
+0,monthIs,2436,2285,12,1,0,2,1,,1,,0,,0,,0,,0,,0,,0,,0,,0,,0,0
+1,probability,2379,2381,0,1
+2,probability,2553,2398,0,0
