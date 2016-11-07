@@ -4,6 +4,8 @@ focus_on_high_profit_grounds TACs FMSY area_monthly_closure
 baseline 
 # biolsce
 19
+# fleetsce
+4
 # Frequency to apply growth (0:daily; 1:weekly; 2:monthly; 3:quarterly; 4:semester)
 4
 # Frequency to redispatch the pop (0:daily; 1:weekly; 2:monthly; 3:quarterly; 4:semester)
