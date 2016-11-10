@@ -2,6 +2,8 @@
 focus_on_high_profit_grounds TACs FMSY
 # dyn_pop_sce
 baseline 
+# fleetsce
+1
 # biolsce
 16
 # Frequency to apply growth (0:daily; 1:weekly; 2:monthly; 3:quarterly; 4:semester)
