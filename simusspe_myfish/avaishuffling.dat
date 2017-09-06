@@ -1,7 +1,7 @@
 # dyn_alloc_sce
 baseline TACs LTMP 
 # dyn_pop_sce
-baseline white_noise_on_avai
+baseline avai_shuffler_on
 # biolsce
 1
 # fleetsce
