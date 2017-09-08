@@ -1,4 +1,6 @@
 
+
+
  # CALLED FROM DISPLACE when dyn_pop_sce.option(Options::avai_updater_on)
 
  args <- commandArgs(trailingOnly = TRUE)
@@ -7,10 +9,12 @@
 ## First check to see if arguments are passed.
 ## Then cycle through each element of the list and evaluate the expressions.
 if(length(args)==0){
-    print("No arguments supplied to input2AvaiUpdater. Take pop 0")
- pop <-0
+    print("No arguments supplied to input2AvaiUpdater. Take pop 0 and tstep 0")
+ pop   <-0
+ tstep <-0
  }else{
-   pop <- args[1]
+   pop   <- args[1]
+   tstep <- args[2]
 }
 
 
@@ -36,15 +40,26 @@ if(length(args)==0){
  if(TRUE) obj <- read.table(file.path(general$main_path, paste("popsspe_", general$application, sep=''), 
                                   "static_avai", "input_file_for_displace_merger.csv"), sep=";", header=TRUE)
  
+
+  # TO DO:
+  # FOR MSPTOOLS COUPLING. 
+  # CALL LGCP-MSPTOOLS APPLIED ON DISPLACE HAUL BY HAUL OUTPUT.
+  # LGCP-MSPTOOLS OUTPUT A FIELD EVERY t CONVERTED IN AN INPUT FILE FOR THE AVAIFIELDUPDATER 
+  # (REMEMBER CONVERTING AGE CATEGORIES, IF ANY, INTO LENGTH GROUPS)
+  #...
+  
+  
+
+ # DO NOT ALTER FOLLOWING THIS LINE-------------------
  obj <- obj[,c("Survey", "Year", "ShootLon", "ShootLat", "Stock", "StockId", paste("nb_indiv.", 0:13, sep=""))]   # caution: THE FORMAT IS NOT FLEXIBLE AT ALL
- 
+
  # make lighter data for the testing purpose....
  obj <-  obj[obj$StockId %in% pop,]
  
- if(nrow(obj)==0) stop(paste("This StockId", pop, "is not in the displace_input_for_data_merger.csv file!!"))
-
+ if(nrow(obj)==0) stop(paste("This StockId ", pop, " is not in the displace_input_for_data_merger.csv file!!"))
+ 
  write.table(obj, file= file.path( general$main_path, paste("popsspe_", general$application, sep=''), "static_avai",
-             "displace_input_for_data_merger.dat"), sep=" ", row.names=FALSE, quote=FALSE)   ## CAUTION file is .dat and sep is white space
+             paste("displace_input_for_data_merger_",tstep,".dat", sep='')), sep=" ", row.names=FALSE, quote=FALSE)   ## CAUTION file is .dat and sep is white space
 
 
 
