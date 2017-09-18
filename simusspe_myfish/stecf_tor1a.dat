@@ -1,4 +1,4 @@
-# dyn_alloc_sce
+# dyn_alloc_sce 
 focus_on_high_profit_grounds TACs FMSY area_monthly_closure
 # dyn_pop_sce
 baseline 
@@ -26,13 +26,13 @@ baseline
 0
 # Go Fishing DTree
 
-# Choose Ground DTree
+# Choose Ground DTree 
 ChooseGround_area_complex_tree_example.dt.csv
 # Start Fishing DTree
 
 # Change Ground DTree
 
-# Stop Fishing DTree
+# Stop Fishing DTree 
 StopFishing_default_tree.dt.csv
 # Change Port DTree
 
