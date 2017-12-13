@@ -1,0 +1,18 @@
+#TreeVersion: 7
+#TreeType: ChooseGround
+# id,variable,posx,posy,nchld,children...,value
+0,isInAreaClosure,2560,2302,2,1,0,2,1,0
+1,smartCatch,2474,2371,2,3,0,4,1,0
+2,probability,2710,2378,0,0
+3,notThatFar,2285,2488,2,5,0,6,1,0
+4,globalQuotaLeftOnAvoidedStksIs,2604,2490,2,7,0,8,1,0
+5,probability,2096,2756,0,1
+6,globalQuotaLeftOnAvoidedStksIs,2371,2574,2,9,0,10,1,0
+7,probability,2598,2750,0,1
+8,riskOfBycatchAvoidedStksThisGroundIs,2781,2579,2,11,0,12,1,0
+9,probability,2213,2756,0,1
+10,riskOfBycatchAvoidedStksThisGroundIs,2447,2657,2,13,0,14,1,0
+11,probability,2728,2747,0,1
+12,probability,2897,2746,0,0
+13,probability,2333,2758,0,1
+14,probability,2470,2757,0,0
