@@ -1,4 +1,4 @@
-#TreeVersion: 6
+#TreeVersion: 7
 #TreeType: StopFishing
 # id,variable,posx,posy,nchld,children...,value
 0,vesselSizeIs,2435,2306,5,1,0,,0,2,1,,1,,1,0
