@@ -28,8 +28,8 @@ baseline
 GoFishing_after_quotas_check.dt.csv
 # Choose Ground DTree
 ChooseGround_avoiding_choke_species.dt.csv
-# Start Fishing DTree
-
+# Start Fishing DTree 
+StartFishing_with_check_for_bycatch_risk.dt.csv
 # Change Ground DTree
 
 # Stop Fishing DTree

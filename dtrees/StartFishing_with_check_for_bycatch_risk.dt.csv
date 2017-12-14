@@ -1,0 +1,8 @@
+#TreeVersion: 7
+#TreeType: StartFishing
+# id,variable,posx,posy,nchld,children...,value
+0,riskOfBycatchAvoidedStksHereIs,2406,2313,2,1,0,2,1,0
+1,probability,2331,2461,0,1
+2,individualQuotaLeftOnAvoidedStksHereIs,2511,2460,2,3,0,4,1,0
+3,probability,2447,2573,0,0.8
+4,probability,2634,2582,0,0

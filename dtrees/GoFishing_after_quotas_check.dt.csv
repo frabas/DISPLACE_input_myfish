@@ -5,4 +5,6 @@
 1,individualQuotaLeftOnAvoidedStksNowIs,2472,2430,2,3,0,4,1,0
 2,probability,2681,2426,0,0
 3,probability,2368,2555,0,1
-4,probability,2588,2549,0,0.2
+4,riskOfBycatchAvoidedStksNowIs,2584,2561,2,5,0,6,1,0
+5,probability,2507,2682,0,0.8
+6,probability,2664,2678,0,0.1
