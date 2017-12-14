@@ -25,7 +25,7 @@ baseline
 #  check all stocks before going fishing (otherwise, explicit pops only)
 0
 # Go Fishing DTree
-
+GoFishing_after_quotas_check.dt.csv
 # Choose Ground DTree
 ChooseGround_avoiding_choke_species.dt.csv
 # Start Fishing DTree
