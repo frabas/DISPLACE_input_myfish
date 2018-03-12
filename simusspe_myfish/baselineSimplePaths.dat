@@ -1,5 +1,5 @@
 # dyn_alloc_sce
-baseline TACs LTMP area_monthly_closure closed_to_others_as_well 
+baseline TACs LTMP 
 # dyn_pop_sce
 baseline
 # biolsce
@@ -11,7 +11,7 @@ baseline
 # Frequency to redispatch the pop (0:daily; 1:weekly; 2:monthly; 3:quarterly; 4:semester)
 3
 # a_graph
-60
+0
 # nrow_coord
 10140
 # nrow_graph
@@ -25,11 +25,11 @@ baseline
 #  check all stocks before going fishing (otherwise, explicit pops only)
 0
 # Go Fishing DTree
-GoFishing_after_quotas_check.dt.csv
+
 # Choose Ground DTree
-ChooseGround_avoiding_choke_species.dt.csv
-# Start Fishing DTree 
-StartFishing_with_check_for_bycatch_risk.dt.csv
+
+# Start Fishing DTree
+
 # Change Ground DTree
 
 # Stop Fishing DTree
