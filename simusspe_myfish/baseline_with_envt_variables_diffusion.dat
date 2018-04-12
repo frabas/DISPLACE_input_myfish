@@ -1,5 +1,5 @@
 # dyn_alloc_sce
-baseline TACs LTMP fishing_credits 
+baseline TACs LTMP envt_variables_diffusion
 # dyn_pop_sce
 baseline 
 # biolsce
@@ -39,13 +39,11 @@ Dtrees
 # Use Dtrees
 0
 #tariff_pop
-10 11
-#freq_update_tariff_code (0: daily, 1: weekly, 2: monthly)
-1
-#arbitrary_breaks_for_tariff
--1 0.1 0.5 1 2 5 100000
-#total_amount_credited
-100000
-#tariff_annual_ (percent change in HCR)
-10
 
+#freq_update_tariff_code
+
+#arbitrary_breaks_for_tariff
+
+#total_amount_credited
+
+#tariff_annual_
