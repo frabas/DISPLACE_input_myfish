@@ -13,7 +13,7 @@ if(length(args)==0){
  pop   <-0
  tstep <-745
  sce   <- "avaiupdating"
- sim   <- "simu2"
+ sim   <- "simu1"
  igraph <- 56
  }else{
    pop   <- args[1]
@@ -42,6 +42,8 @@ if(length(args)==0){
   }
 
 
+  library(methods)
+  
  ###------------------------------------------###
  ### LOAD EXTERNAL SURVEY OR COMMERCIAL DATA ####
  ###------------------------------------------###
@@ -62,20 +64,44 @@ if(length(args)==0){
  ###------------------------------------------###
  #...or the one from the previous catches in the simu:
  # BUT CAUTION ONLY VALID TO INFORM THE BIGGER SZGROUPS...
+ if(TRUE){
    # 1. Use sqlite
- #   library(DBI)
- #   library(RSQLite)
- #   con <- dbConnect(RSQLite::SQLite(), file.path(general$output_path, sce, 
- #                                        paste(general$application, "_", sim, "_out", ".db", sep='')))
- #   dbListTables(con)
- #   head(dbReadTable(con, "VesselLogLike"))
- #   head(dbReadTable(con, "VesselDef"))
- #   head(dbReadTable(con, "VesselLogLikeCatches"))
+    library(DBI)
+    library(RSQLite)
+    con <- dbConnect(RSQLite::SQLite(), file.path(general$output_path, sce, 
+                                         paste(general$application, "_", sim, "_out", ".db", sep='')))
+    dbListTables(con)
+    head(dbReadTable(con, "VesselLogLike"))
+    head(dbReadTable(con, "VesselDef"))
+    head(dbReadTable(con, "VesselLogLikeCatches"))
+    head(dbReadTable(con, "VesselVmsFPingsOnlyLike"))
 
- #   res <- dbSendQuery(con, "SELECT TStep,SUM(Catches) FROM VesselLogLike JOIN VesselDef ON Id = VesselId JOIN VesselLogLikeCatches ON RowId = LoglikeId WHERE Nationality = 'ITA' GROUP BY TStep")
+ #   res <- dbSendQuery(con, "SELECT TStep,SUM(Catches) FROM VesselLogLike JOIN VesselDef ON Id = VesselId JOIN VesselLogLikeCatches ON RowId = LoglikeId WHERE Nationality = 'SWE' GROUP BY TStep")
  #   dbFetch(res, n= -1)
  #   dbClearResult(res)
+
+   # query the db
+   res <- dbSendQuery(con, "SELECT * FROM VesselVmsFPingsOnlyLike JOIN NodesDef ON NodesDef.NodeId = VesselVmsFPingsOnlyLike.NodeId") 
+   dd <- dbFetch(res, n= -1)
+   dbClearResult(res)
+   
+   # sample 10 % among these vessels
+   dd <- dd[ dd$VesselId %in% sample (unique(dd$VesselId))[1:(length(unique(dd$VesselId))*0.1)] ,] 
+   
+   # convert to wide format to make compatible info
+   obj <- reshape(dd[,c("TStep", "VesselId", "HarbourId", "Long", "Lat", "NodeId", "marineLandscape", "bathymetry", "PopId", "SzGrpId", "Catches")],
+                  timevar = "SzGrpId", idvar = c("TStep", "VesselId", "HarbourId", "Long", "Lat", "NodeId", "marineLandscape", "bathymetry", "PopId"), direction = "wide")
   
+   obj <- obj[,1:23]
+   colnames (obj) <-  c("tstep","Survey","start_trip_tstep","ShootLon","ShootLat","nodeid", "course","cumfuelcons",
+                       "StockId","nb_indiv.0","nb_indiv.1","nb_indiv.2","nb_indiv.3","nb_indiv.4","nb_indiv.5",
+                       "nb_indiv.6","nb_indiv.7","nb_indiv.8","nb_indiv.9",
+                       "nb_indiv.10","nb_indiv.11","nb_indiv.12","nb_indiv.13")
+  }
+  
+   
+   
+  if(FALSE){
   # 2. Use output text file:
   filename <- file.path(general$output_path,  sce,
          paste("vmslikefpingsonly_", sim,".dat", sep=''))
@@ -86,7 +112,7 @@ if(length(args)==0){
   library(data.table)
   obj <-  fread(filename, sep=" ", header=FALSE, fill=TRUE)  
   # fill at TRUE will complement the incomplete row (likely the last one in our case...)
-             
+  }           
      
    
  print(paste("loading vmslikefpingsonly_xx.dat...ok"))
@@ -106,7 +132,7 @@ if(length(args)==0){
      obj$Stock <- "a_stock"
   
   # keep the last month(s) info only  
-  obj <- obj[as.numeric(as.character(obj$start_trip_tstep)) > (as.numeric(as.character(tstep)) - (745*1)),]  
+  #obj <- obj[as.numeric(as.character(obj$start_trip_tstep)) > (as.numeric(as.character(tstep)) - (745*1)),]  
     
   idx_zeros <- which( apply(obj[,paste("nb_indiv.", 0:13, sep="")], 1, sum) ==0) 
   obj <- obj[-idx_zeros, ] # assume 0s like absence of targetting, then get rid of them 
@@ -129,7 +155,8 @@ if(length(args)==0){
 
  #coord <- read.table(file=file.path(general$main_path, "graphsspe",
  #            paste("coord", general$igraph, ".dat", sep=""))) # build from the c++ gui
- coord <-  fread(file=file.path(general$main_path, "graphsspe",
+ library(data.table)
+ coord <-  fread(file=file.path(general$main_path, "graphsspe",   # in library(data.table)
              paste("coord", general$igraph, ".dat", sep="")), sep=" ", header=FALSE, fill=TRUE)  
  coord <- as.matrix(as.vector(coord))
  coord <- matrix(coord, ncol=3)
