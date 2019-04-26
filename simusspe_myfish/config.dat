@@ -2,19 +2,19 @@
 38
 # nbbenthospops
 4
-# implicit stocks
+# implicit stocks (i.e. with no pop dynamics)
 0 1 2 3 4 5 6 7 8 9 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 
-# calib the other landings per stock
+# calib the other landings per stock (a multiplier for landings other than from the simulated vessels)
 1 1 1 1 1 1 1 2.7 1 1 1.5 2.1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
-# calib weight-at-szgroup per stock
+# calib weight-at-szgroup per stock (a multiplier for w)
 1 1 1 10 1 1 1 0.9 1 1 1 0.9 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
-# calib the cpue multiplier per stock
+# calib the cpue multiplier per stock (a multiplier for w)
 1 1 1 2 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
 # Interesting harbours
 
-# implicit stocks level 2
+# implicit stocks_pops_level2 (...)
 
-# grouped TACs groups
+# grouped tacs (a group nb for each stock e.g. 1 1 2 2 3 4 if 6 stocks)
 1 1 1 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-
-
+# nbcp coupling pops
+10
