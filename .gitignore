@@ -1,3 +1,3 @@
 *.RData
-\interactiverscripts\model.*
+/interactiverscripts/model.*
 
