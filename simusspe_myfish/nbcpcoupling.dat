@@ -9,7 +9,7 @@ baseline nbcpCoupling
 # Frequency to apply growth (0:daily; 1:weekly; 2:monthly; 3:quarterly; 4:semester)
 4
 # Frequency to redispatch the pop (0:daily; 1:weekly; 2:monthly; 3:quarterly; 4:semester)
-0
+3
 # a_graph
 56
 # nrow_coord

@@ -76,10 +76,10 @@ if(TRUE){
 
 #library(TMB)
 #library(gridConstruct)
-library(Matrix)
-library(fields)
-library(raster)
-library(tidyr)
+suppressWarnings(suppressMessages(library(Matrix)))
+suppressWarnings(suppressMessages(library(fields)))
+suppressWarnings(suppressMessages(library(raster)))
+suppressWarnings(suppressMessages(library(tidyr)))
 
 
 # SECTION 1: Predict abundance field one time-step ahead (core section for DISPLACE coupling)
@@ -358,7 +358,7 @@ displace_dat[,c(5:ncol(displace_dat))] <- apply(displace_dat[,c(5:ncol(displace_
  
  the_selected_szgroups <- c(0, 2, 3, 5, 7)
  
- annual_tstep <- tstep %% 8761
+ annual_tstep <- as.numeric(tstep) %% 8761
  quarter <- "Q1"
  if(annual_tstep>=2160 && annual_tstep<4344) quarter <- "Q2"
  if(annual_tstep>=4344 && annual_tstep<6552) quarter <- "Q3"
