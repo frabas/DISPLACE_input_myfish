@@ -269,6 +269,20 @@ loc <- loc[loc$harb==0,] # remove points on harbours (all harb>0)
 loc2 <- loc[,c("lon","lat")] # keep only lon/lat columns
 
 
+
+if(pop==10){
+# clip to the real stock area definition
+clip <- raster(file.path(path, "interactiverscripts", "sd222324.tif"))
+for(i in seq_along(abufields)){
+   abufields[[i]] <- crop(abufields[[i]], clip)
+   }
+}
+
+
+
+
+
+
 dfa <- list()
 for(i in seq_along(abufields)){
   dfa[[i]]<- raster::extract(abufields[[i]],loc2)
