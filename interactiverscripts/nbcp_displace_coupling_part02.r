@@ -333,7 +333,7 @@ displace_dat <- spread(dfa, Size, abundance)
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
-# 3.3) Normalize abundances
+# 3.3) Useful to later Normalize abundances
 #~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Normalize function
@@ -346,14 +346,10 @@ NormAbu <- function(x){
 }
 
 
-# Normalize abundance values
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Can only be applied to df without the presence of NAs. Thus, we need to remove
-# the DISPLACE coordinates where no abundance was associated.
 idxna <- which(is.na(displace_dat$SG0)) #Can choose any arbitrary size-group column as the result will be the same
 displace_dat <- displace_dat[-idxna,]
 
-displace_dat[,c(5:ncol(displace_dat))] <- apply(displace_dat[,c(5:ncol(displace_dat))],2,NormAbu)
+
 
 
 
@@ -381,13 +377,17 @@ displace_dat[,c(5:ncol(displace_dat))] <- apply(displace_dat[,c(5:ncol(displace_
  if(quarter=="Q1" || quarter=="Q2"){
    if(quarter=="Q1"){
        dd      <- displace_dat[displace_dat$Quarter=="Q1",]
+       dd[,c(5:ncol(dd))] <- apply(dd[,c(5:ncol(dd))],2, NormAbu)
+       print(apply(dd[,c(5:ncol(dd))], 2, sum))   # should return 1
        ddd     <- gather(dd, key=szgroup,value=avai,5:ncol(dd)) # reshape to long format
        library(doBy)
        ddd      <- orderBy(~pt_graph, ddd)
        dat      <- ddd[ddd$szgroup %in% paste0('SG',the_selected_szgroups), c("pt_graph", "avai")]
        dat_full <- ddd[, c("pt_graph", "avai")]
    } else{
-        dd      <- displace_dat[displace_dat$Quarter=="Q2",]
+       dd      <- displace_dat[displace_dat$Quarter=="Q2",]
+       dd[,c(5:ncol(dd))] <- apply(dd[,c(5:ncol(dd))],2, NormAbu)
+       print(apply(dd[,c(5:ncol(dd))], 2, sum))   # should return 1
        ddd     <- gather(dd, key=szgroup,value=avai,5:ncol(dd)) # reshape to long format
        library(doBy)
        ddd      <- orderBy(~pt_graph, ddd)
@@ -400,7 +400,9 @@ displace_dat[,c(5:ncol(displace_dat))] <- apply(displace_dat[,c(5:ncol(displace_
                          paste(pop, "spe_full_avai_szgroup_nodes_semester1_updated.dat", sep="")), quote=FALSE, col.names=TRUE, row.names=FALSE)
  } else{
    if(quarter=="Q3"){
-        dd      <- displace_dat[displace_dat$Quarter=="Q3",]
+       dd      <- displace_dat[displace_dat$Quarter=="Q3",]
+       dd[,c(5:ncol(dd))] <- apply(dd[,c(5:ncol(dd))],2, NormAbu)
+       print(apply(dd[,c(5:ncol(dd))], 2, sum))   # should return 1
        ddd     <- gather(dd, key=szgroup,value=avai,5:ncol(dd)) # reshape to long format
        library(doBy)
        ddd      <- orderBy(~pt_graph, ddd)
@@ -408,6 +410,8 @@ displace_dat[,c(5:ncol(displace_dat))] <- apply(displace_dat[,c(5:ncol(displace_
        dat_full <- ddd[, c("pt_graph", "avai")]
   } else{
        dd      <- displace_dat[displace_dat$Quarter=="Q4",]
+       dd[,c(5:ncol(dd))] <- apply(dd[,c(5:ncol(dd))],2, NormAbu)
+       print(apply(dd[,c(5:ncol(dd))], 2, sum))   # should return 1
        ddd     <- gather(dd, key=szgroup,value=avai,5:ncol(dd)) # reshape to long format
        library(doBy)
        ddd      <- orderBy(~pt_graph, ddd)
