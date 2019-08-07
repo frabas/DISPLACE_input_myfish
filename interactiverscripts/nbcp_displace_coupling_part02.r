@@ -76,8 +76,8 @@ if(TRUE){
 
 #library(TMB)
 #library(gridConstruct)
-#library(Matrix)
-#library(fields)
+library(Matrix)
+library(fields)
 library(raster)
 library(tidyr)
 
@@ -113,8 +113,9 @@ rmvnorm_prec <- function(mu, prec, n.sims) {
 
 # Load results
 #~~~~~~~~~~~~~~~~
-if(a_pop ==11){
+if(pop ==10){
   load(file.path(path, "interactiverscripts", "WBScod.RData")) #fullres is a list of lists, where each individual list stores the results of a particular size-group
+  cat("load data input to nbcp...done\n")
   } else{
   cat(paste("no nbcp input file available for this stock...\n"))
   stop()
@@ -167,7 +168,7 @@ NCOL <- ncol(abundances[[1]])           # nb of quarters
 DIM <- length(fullres)                  # nb of szgroups
 tmp <- array(1:(NCOL*NROW), c(NROW,NCOL,DIM)) 
 
-NSIM <- 1000 #Choose the number of simulations and take the mean across the simulated fields
+NSIM <- 100 #Choose the number of simulations and take the mean across the simulated fields
 
 
 
@@ -184,7 +185,7 @@ for(i in seq_along(abundances)){  # i is szgroup
 names(Allspred) <- names(fullres)
 # image(fullres[[1]]$gr, Allspred[[1]][,1],col=tim.colors(99)) #plotting example
 
-
+cat("simulate a nbcp pop ",pop," abundance field for t+1...done\n")
 
 
 
@@ -307,6 +308,8 @@ for(i in seq_along(dfa)){
 dfa <- do.call("rbind",dfa) 
 rownames(dfa) <- NULL
 
+dfa$Size <- factor(dfa$Size, levels=paste0("SG", 0:13))  # reorder
+
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # 3.2) Transform to wide format
@@ -325,7 +328,7 @@ displace_dat <- spread(dfa, Size, abundance)
 #  return ((x - min(x)) / (max(x) - min(x)))
 #}
 NormAbu <- function(x){
-  return(x/sum(x))
+  return(exp(x)/sum(exp(x)))
 }
 
 
@@ -355,22 +358,53 @@ displace_dat[,c(5:ncol(displace_dat))] <- apply(displace_dat[,c(5:ncol(displace_
  
  the_selected_szgroups <- c(0, 2, 3, 5, 7)
  
- dat <- 
- colnames(dat) <- c("pt_graph", "abundance") 
- write.table(dat, file=file.path(path, paste0("popsspe_", application), "static_avai",
-                          paste(pop, "spe_avai_szgroup_nodes_semester1_updated", sep="")), header=FALSE)
- dat <- 
- colnames(dat) <- c("pt_graph", "abundance") 
- write.table(dat, file=file.path(path, paste0("popsspe_", application), "static_avai",
-                         paste(pop, "spe_full_avai_szgroup_nodes_semester1_updated", sep="")), header=FALSE)
- dat <- 
- colnames(dat) <- c("pt_graph", "abundance") 
- write.table(dat, file=file.path(path, paste0("popsspe_", application), "static_avai",
-                         paste(pop, "spe_avai_szgroup_nodes_semester2_updated", sep="")), header=FALSE)
- dat <- 
- colnames(dat) <- c("pt_graph", "abundance") 
- write.table(dat, file=file.path(path, paste0("popsspe_", application), "static_avai",
-                        paste(pop, "spe_full_avai_szgroup_nodes_semester2_updated", sep="")), header=FALSE)
+ annual_tstep <- tstep %% 8761
+ quarter <- "Q1"
+ if(annual_tstep>=2160 && annual_tstep<4344) quarter <- "Q2"
+ if(annual_tstep>=4344 && annual_tstep<6552) quarter <- "Q3"
+ if(annual_tstep>=6552 && annual_tstep<8761) quarter <- "Q4"
+ 
+ if(quarter=="Q1" || quarter=="Q2"){
+   if(quarter=="Q1"){
+       dd      <- displace_dat[displace_dat$Quarter=="Q1",]
+       ddd     <- gather(dd, key=szgroup,value=avai,5:ncol(dd)) # reshape to long format
+       library(doBy)
+       ddd      <- orderBy(~pt_graph, ddd)
+       dat      <- ddd[ddd$szgroup %in% paste0('SG',the_selected_szgroups), c("pt_graph", "avai")]
+       dat_full <- ddd[, c("pt_graph", "avai")]
+   } else{
+        dd      <- displace_dat[displace_dat$Quarter=="Q2",]
+       ddd     <- gather(dd, key=szgroup,value=avai,5:ncol(dd)) # reshape to long format
+       library(doBy)
+       ddd      <- orderBy(~pt_graph, ddd)
+       dat      <- ddd[ddd$szgroup %in% paste0('SG',the_selected_szgroups), c("pt_graph", "avai")]
+       dat_full <- ddd[, c("pt_graph", "avai")]
+     } 
+   write.table(dat, file=file.path(path, paste0("popsspe_", application), "static_avai",
+                          paste(pop, "spe_avai_szgroup_nodes_semester1_updated.dat", sep="")), quote=FALSE, col.names=TRUE, row.names=FALSE)
+   write.table(dat_full, file=file.path(path, paste0("popsspe_", application), "static_avai",
+                         paste(pop, "spe_full_avai_szgroup_nodes_semester1_updated.dat", sep="")), quote=FALSE, col.names=TRUE, row.names=FALSE)
+ } else{
+   if(quarter=="Q3"){
+        dd      <- displace_dat[displace_dat$Quarter=="Q3",]
+       ddd     <- gather(dd, key=szgroup,value=avai,5:ncol(dd)) # reshape to long format
+       library(doBy)
+       ddd      <- orderBy(~pt_graph, ddd)
+       dat      <- ddd[ddd$szgroup %in% paste0('SG',the_selected_szgroups), c("pt_graph", "avai")]
+       dat_full <- ddd[, c("pt_graph", "avai")]
+  } else{
+       dd      <- displace_dat[displace_dat$Quarter=="Q4",]
+       ddd     <- gather(dd, key=szgroup,value=avai,5:ncol(dd)) # reshape to long format
+       library(doBy)
+       ddd      <- orderBy(~pt_graph, ddd)
+       dat      <- ddd[ddd$szgroup %in% paste0('SG',the_selected_szgroups), c("pt_graph", "avai")]
+       dat_full <- ddd[, c("pt_graph", "avai")]
+  } 
+   write.table(dat, file=file.path(path, paste0("popsspe_", application), "static_avai",
+                         paste(pop, "spe_avai_szgroup_nodes_semester2_updated.dat", sep="")), quote=FALSE, col.names=TRUE, row.names=FALSE)
+   write.table(dat_full, file=file.path(path, paste0("popsspe_", application), "static_avai",
+                        paste(pop, "spe_full_avai_szgroup_nodes_semester2_updated.dat", sep="")), quote=FALSE, col.names=TRUE, row.names=FALSE)
+ }
  
  
  
