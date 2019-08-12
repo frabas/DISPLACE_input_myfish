@@ -182,6 +182,14 @@ for(i in seq_along(abundances)){  # i is szgroup
     Allspred <- lapply(seq(dim(tmp)[3]), function(x) tmp[ , , x]) # Convert array back to list (easier to manipulate)
   }
 }
+
+# Set abundances back to natural scale
+for(i in seq_along(Allspred)){
+  Allspred[[i]] <- apply(Allspred[[i]],2,exp)
+}
+
+
+
 names(Allspred) <- names(fullres)
 # image(fullres[[1]]$gr, Allspred[[1]][,1],col=tim.colors(99)) #plotting example
 
@@ -342,7 +350,7 @@ displace_dat <- spread(dfa, Size, abundance)
 #  return ((x - min(x)) / (max(x) - min(x)))
 #}
 NormAbu <- function(x){
-  return(exp(x)/sum(exp(x)))
+  return(x/sum(x))
 }
 
 
