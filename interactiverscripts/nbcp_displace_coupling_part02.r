@@ -28,7 +28,7 @@
     tstep   <- 745
     sce     <- "nbcpcoupling"
     sim     <- "simu1"
-    igraph  <- 56
+    igraph  <- "a_graph56"
  }else{
    pop      <- args[1]
    tstep    <- args[2]
@@ -37,7 +37,7 @@
    igraph   <- args[5]
 }
 
- 
+  igraph <- as.numeric(gsub("a_graph", "", igraph))
  
   application           <- "myfish"
   
